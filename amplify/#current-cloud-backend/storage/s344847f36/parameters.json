@@ -1,0 +1,9 @@
+{
+    "bucketName": "4milkapp7775955879aa48e891e361b5e262104e",
+    "authPolicyName": "s3_amplify_44847f36",
+    "unauthPolicyName": "s3_amplify_44847f36",
+    "authRoleName": "a4milkapp-20181018010012-authRole",
+    "unauthRoleName": "a4milkapp-20181018010012-unauthRole",
+    "authPermissions": "rw",
+    "unauthPermissions": ""
+}

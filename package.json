@@ -5,9 +5,9 @@
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-    "start": "ionic-app-scripts serve",
+    "start": "[ -f src/aws-exports.js ] && mv src/aws-exports.js src/aws-exports.ts || ionic-app-scripts serve",
     "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
+    "build": "[ -f src/aws-exports.js ] && mv src/aws-exports.js src/aws-exports.ts || ionic-app-scripts build",
     "lint": "ionic-app-scripts lint"
   },
   "dependencies": {
@@ -28,7 +28,9 @@
     "@ionic/storage": "2.2.0",
     "@ngx-translate/core": "8.0.0",
     "@ngx-translate/http-loader": "^2.0.0",
-    "ionic-angular": "3.9.2",
+    "aws-amplify": "^1.1.7",
+    "aws-amplify-angular": "^2.0.10",
+    "ionic-angular": "^3.9.2",
     "ionicons": "3.0.0",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
@@ -36,6 +38,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.0",
+    "@types/node": "^10.12.0",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project"
