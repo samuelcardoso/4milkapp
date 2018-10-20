@@ -4,16 +4,20 @@ import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { Item } from '../../models/item';
 import { Items } from '../../providers';
 
+import { FirebaseProvider } from './../../providers/firebase/firebase';
+
 @IonicPage()
 @Component({
   selector: 'page-list-master',
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
+  // currentItems: Item[];
   currentItems: Item[];
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public firebaseProvider: FirebaseProvider) {
+    // this.currentItems = this.items.query();
+    firebaseProvider.getFlocks().valueChanges().subscribe(list => {this.currentItems = list;});
   }
 
   /**
