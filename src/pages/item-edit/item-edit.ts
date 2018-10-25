@@ -5,10 +5,10 @@ import { IonicPage, NavController, ViewController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-item-create',
-  templateUrl: 'item-create.html'
+  selector: 'page-item-edit',
+  templateUrl: 'item-edit.html'
 })
-export class ItemCreatePage {
+export class ItemEditPage {
   @ViewChild('fileInput') fileInput;
 
   isReadyToSave: boolean;
@@ -16,12 +16,13 @@ export class ItemCreatePage {
   form: FormGroup;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, public camera: Camera) {
+    const item = this.viewCtrl.data;
     this.form = formBuilder.group({
-      image: [''],
-      name: ['', Validators.required],
-      surname: ['']
+      id: [item.id],
+      image: [item.image],
+      name: [item.name, Validators.required],
+      surname: [item.surname]
     });
-
     // Watch the form for changes, and
     this.form.valueChanges.subscribe((v) => {
       this.isReadyToSave = this.form.valid;
@@ -29,7 +30,6 @@ export class ItemCreatePage {
   }
 
   ionViewDidLoad() {
-
   }
 
   getPicture() {

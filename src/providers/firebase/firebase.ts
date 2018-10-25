@@ -27,6 +27,7 @@ export class FirebaseProvider {
     try {
       bulkDoc.set(flock);
     } catch(error) {
+      console.log(error);
       debugger;
     }
   }
@@ -36,6 +37,7 @@ export class FirebaseProvider {
     try {
       await bulkDoc.delete();
     } catch(error) {
+      console.log(error);
       debugger;
     }
   }
@@ -45,6 +47,7 @@ export class FirebaseProvider {
     try {
       await bulkDoc.update(flock);
     } catch(error) {
+      console.log(error);
       debugger;
     }
   }
