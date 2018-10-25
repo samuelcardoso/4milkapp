@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
-
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Item } from 'ionic-angular';
 
 /*
   Generated class for the FirebaseProvider provider.
@@ -11,27 +10,43 @@ import { AngularFireDatabase } from 'angularfire2/database';
 */
 @Injectable()
 export class FirebaseProvider {
+  flocksCollection: AngularFirestoreCollection<Item>;
+  bulkDoc: AngularFirestoreDocument<Item>;
 
-  constructor(
-    public http: HttpClient,
-    public afd: AngularFireDatabase) {
-    console.log('Hello FirebaseProvider Provider');
+  constructor(public afs: AngularFirestore) {
+    this.flocksCollection = this.afs.collection('flocks');
   }
 
   getFlocks() {
-    return this.afd.list('flocks');
+    return this.flocksCollection.valueChanges(); 
   }
- 
-  addItem(item) {
-    this.afd.list('flocks').push({
-      name: item._name,
-      surname: item._surname,
-      image: item._image
-    });
+
+  async addFlock(flock: Item) {
+    flock.id = this.afs.createId();
+    const bulkDoc = this.afs.doc(`flocks/${flock.id}`);
+    try {
+      bulkDoc.set(flock);
+    } catch(error) {
+      debugger;
+    }
   }
- 
-  removeItem(id) {
-    this.afd.list('flocks').remove(id);
+
+  async deleteFlock(flock: Item) {
+    const bulkDoc = this.afs.doc(`flocks/${flock.id}`);
+    try {
+      await bulkDoc.delete();
+    } catch(error) {
+      debugger;
+    }
+  }
+
+  async updateFlock(flock: Item) {
+    const bulkDoc = this.afs.doc(`flocks/${flock.id}`);
+    try {
+      await bulkDoc.update(flock);
+    } catch(error) {
+      debugger;
+    }
   }
 
 }

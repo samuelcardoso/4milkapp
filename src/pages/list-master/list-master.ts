@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 
 import { Item } from '../../models/item';
-import { Items } from '../../providers';
 
 import { FirebaseProvider } from './../../providers/firebase/firebase';
+import { Observable } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -12,29 +12,27 @@ import { FirebaseProvider } from './../../providers/firebase/firebase';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  // currentItems: Item[];
-  currentItems: Item[];
+  items: Observable<Item[]>;
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public firebaseProvider: FirebaseProvider) {
-    // this.currentItems = this.items.query();
-    firebaseProvider.getFlocks().valueChanges().subscribe(list => {this.currentItems = list;});
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public firebaseProvider: FirebaseProvider) {
   }
 
   /**
    * The view loaded, let's query our items for the list
    */
   ionViewDidLoad() {
+    this.items = this.firebaseProvider.getFlocks();
   }
 
   /**
    * Prompt the user to add a new item. This shows our ItemCreatePage in a
    * modal and then adds the new item to our data source if the user created one.
    */
-  addItem() {
+  async addItem() {
     let addModal = this.modalCtrl.create('ItemCreatePage');
-    addModal.onDidDismiss(item => {
+    addModal.onDidDismiss(async (item) => {
       if (item) {
-        this.items.add(item);
+        await this.firebaseProvider.addFlock(item);
       }
     })
     addModal.present();
@@ -43,8 +41,8 @@ export class ListMasterPage {
   /**
    * Delete an item from the list of items.
    */
-  deleteItem(item) {
-    this.items.delete(item);
+  async deleteItem(item) {
+    await this.firebaseProvider.deleteFlock(item);
   }
 
   /**
