@@ -51,6 +51,9 @@
 
   "LIST_MASTER_TITLE": "Itens",
 
+  "ITEM_EDIT_TITLE": "Editar Item",
+  "ITEM_EDIT_CHOOSE_IMAGE": "Alterar Imagem",
+
   "ITEM_CREATE_TITLE": "Novo Item",
   "ITEM_CREATE_CHOOSE_IMAGE": "Adicionar Imagem",
 
@@ -60,6 +63,7 @@
   "DONE_BUTTON": "Pronto",
   "CANCEL_BUTTON": "Cancelar",
   "DELETE_BUTTON": "Apagar",
+  "EDIT_BUTTON": "Editar",
 
   "CARDS_TITLE": "Social",
 
