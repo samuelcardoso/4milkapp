@@ -13,6 +13,19 @@ import { Items } from '../mocks/providers/items';
 import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
 
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD6yhSppd7uJ_L6QnfOis6kQbc4cE8ex0Y",
+  authDomain: "milkapp-bf746.firebaseapp.com",
+  databaseURL: "https://milkapp-bf746.firebaseio.com",
+  projectId: "milkapp-bf746",
+  storageBucket: "milkapp-bf746.appspot.com",
+  messagingSenderId: "376613355795"
+};
+
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
@@ -41,6 +54,9 @@ export function provideSettings(storage: Storage) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -64,7 +80,8 @@ export function provideSettings(storage: Storage) {
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    FirebaseProvider,
   ]
 })
 export class AppModule { }
