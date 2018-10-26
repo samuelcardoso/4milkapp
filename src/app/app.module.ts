@@ -16,6 +16,7 @@ import { MyApp } from './app.component';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD6yhSppd7uJ_L6QnfOis6kQbc4cE8ex0Y",
@@ -57,6 +58,7 @@ export function provideSettings(storage: Storage) {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AngularFirestoreModule.enablePersistence(),
+    AngularFireAuthModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

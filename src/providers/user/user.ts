@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+
 /**
  * Most apps have the concept of a User. This is a simple provider
  * with stubs for login/signup/etc.
@@ -27,13 +29,20 @@ import { Api } from '../api/api';
 export class User {
   _user: any;
 
-  constructor(public api: Api) { }
+  constructor(public api: Api, public angularFireAuth: AngularFireAuth) { }
 
   /**
    * Send a POST request to our login endpoint with the data
    * the user entered on the form.
    */
   login(accountInfo: any) {
+
+    debugger;
+    this.angularFireAuth.auth.fetchProvidersForEmail(accountInfo.email).then(value => {
+      console.log(value);
+      debugger;
+    });
+
     let seq = this.api.post('login', accountInfo).share();
 
     seq.subscribe((res: any) => {

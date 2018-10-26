@@ -9,6 +9,7 @@
     "android": "ionic cordova run android --verbose",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
+    "release-android": "ionic cordova build --release android",
     "lint": "ionic-app-scripts lint"
   },
   "dependencies": {
@@ -41,7 +42,8 @@
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-ionic-webview": "^2.0.0",
-    "cordova-plugin-ionic-keyboard": "^2.0.5"
+    "cordova-plugin-ionic-keyboard": "^2.0.5",
+    "cordova-android": "7.1.1"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.0",
